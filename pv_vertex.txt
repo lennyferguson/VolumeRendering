@@ -1,0 +1,22 @@
+#version 410 core
+layout (location = 0) in vec4 position;
+
+layout(std140) uniform constants
+	{
+		mat4 mv_matrix;
+		mat4 view_matrix;
+		mat4 proj_matrix;
+	};
+
+	out VS_OUT
+	{
+		vec4 color;
+	} vs_out;
+
+	void main(void)
+	{
+		// Calculate view-space coordinate
+		vec4 P = mv_matrix * position;
+		vs_out.color = (position+1.5)/2.5;
+		gl_Position = proj_matrix * P;
+	}
